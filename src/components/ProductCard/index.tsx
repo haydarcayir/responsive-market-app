@@ -29,15 +29,26 @@ const ProductInfo = styled.div`
   margin-top: 10px;
 `
 
-const ProductCard = () => {
+export type TProps = {
+  name: string
+  price: number
+  added?: number
+  description?: string
+  itemType?: string
+  manufacturer?: string
+  slug?: string
+  tags?: string[]
+}
+
+const ProductCard = ({ item }: { item: TProps }) => {
   return (
     <Container>
       <ImageContainer>
         <Image />
       </ImageContainer>
       <ProductInfo>
-        <PriceLabel>20.00</PriceLabel>
-        <ProductNameLabel>Gorgeous Office Mug</ProductNameLabel>
+        <PriceLabel>{item.price}</PriceLabel>
+        <ProductNameLabel>{item.name}</ProductNameLabel>
         <Button text="Add" className="w-100" />
       </ProductInfo>
     </Container>

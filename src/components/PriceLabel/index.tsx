@@ -19,7 +19,7 @@ const Label = styled.span`
 `
 
 type TProps = {
-  children: string
+  children: string | number
   color?: typeof PRICE_LABEL_COLOR_OPTIONS[keyof typeof PRICE_LABEL_COLOR_OPTIONS]
 }
 

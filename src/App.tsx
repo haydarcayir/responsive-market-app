@@ -3,8 +3,6 @@ import Header from "components/Header"
 import Filter from "containers/Filter"
 import ProductList from "containers/ProductList"
 import styled from "styled-components"
-import { useDispatch, useSelector } from "react-redux"
-import { getProduct } from "redux/ducks/productSlice"
 
 const Container = styled.div`
   display: grid;
@@ -15,13 +13,6 @@ const Container = styled.div`
 
 function App() {
   const [isActive, setIsActive] = useState(false)
-  const dispatch = useDispatch()
-
-  const user = useSelector((state: any) => state)
-
-  useEffect(() => {
-    dispatch(getProduct())
-  }, [dispatch])
 
   return (
     <div className="App">

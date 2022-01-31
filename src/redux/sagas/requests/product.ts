@@ -1,8 +1,10 @@
 import axios from "axios"
+import { BASE_URL } from "libs/constants/BASE_URL"
 
-export function requestGetProduct() {
+export function requestGetItems(page: number) {
+  console.log("page: ", page)
   return axios.request({
     method: "get",
-    url: "https://my-json-server.typicode.com/atothey/demo/user",
+    url: `${BASE_URL}/items?_page=${page}&_limit=16`,
   })
 }

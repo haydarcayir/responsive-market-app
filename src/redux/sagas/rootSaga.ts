@@ -1,7 +1,7 @@
 import { takeLatest } from "redux-saga/effects"
-import { handleGetProduct } from "./handlers/product"
-import { getProduct } from "../ducks/productSlice"
+import { handleGetItems } from "./handlers/product"
+import { getItems } from "../ducks/itemSlice"
 
 export function* watcherSaga() {
-  yield takeLatest(getProduct.type, handleGetProduct)
+  yield takeLatest(getItems.type, handleGetItems)
 }

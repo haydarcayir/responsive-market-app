@@ -1,3 +1,4 @@
+import React from "react"
 import ReactPaginate from "react-paginate"
 import styled from "styled-components"
 import cls from "classnames"
@@ -64,6 +65,17 @@ const StyledPagination = styled.div`
   }
 `
 
+type TProps = {
+  onPageChange: ({ selected }: { selected: number }) => void
+  pageCount: number
+  className?: string
+  breakLabel?: string
+  nextLabel?: React.ReactNode | JSX.Element
+  pageRangeDisplayed?: number | undefined
+  previousLabel?: React.ReactNode | JSX.Element
+  renderOnZeroPageCount?: (() => void | null) | undefined
+}
+
 const Pagination = ({
   className,
   breakLabel = "...",
@@ -75,7 +87,7 @@ const Pagination = ({
   ),
   onPageChange,
   pageRangeDisplayed,
-  pageCount = 50,
+  pageCount,
   previousLabel = (
     <span>
       <AiOutlineArrowLeft />
@@ -83,7 +95,7 @@ const Pagination = ({
     </span>
   ),
   renderOnZeroPageCount,
-}: any) => {
+}: TProps) => {
   return (
     <StyledPagination>
       <ReactPaginate

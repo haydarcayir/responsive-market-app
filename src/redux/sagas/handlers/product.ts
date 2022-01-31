@@ -1,16 +1,32 @@
 import { call, put } from "redux-saga/effects"
-import { setProduct } from "../../ducks/productSlice"
-import { requestGetProduct } from "../requests/product"
+import { setItems } from "../../ducks/itemSlice"
+import { requestGetItems } from "../requests/product"
+import { TResponseBaseModel } from "libs/models/response-base-model"
 
-type TResponse = {
-  name: string[]
+type TData = {
+  account: number
+  address: string
+  city: string
+  contact: string
+  name: string
+  slug: string
+  state: string
+  zip: string
+}[]
+
+type TResponseData = {
+  length: number
+  data: TData[]
 }
 
-export function* handleGetProduct() {
+export function* handleGetItems(action: any) {
+  const { page } = action.payload
   try {
-    const response: TResponse = yield call(requestGetProduct)
-    const { name } = response
-    yield put(setProduct({ ...name }))
+    const { data }: TResponseBaseModel<TResponseData> = yield call(
+      requestGetItems,
+      page
+    )
+    yield put(setItems(data))
   } catch (error) {
     console.log(error)
   }
