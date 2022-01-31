@@ -5,7 +5,6 @@ import ProductList from "containers/ProductList"
 import styled from "styled-components"
 import { useDispatch, useSelector } from "react-redux"
 import { getProduct } from "redux/ducks/productSlice"
-import { stat } from "fs"
 
 const Container = styled.div`
   display: grid;
@@ -19,7 +18,6 @@ function App() {
   const dispatch = useDispatch()
 
   const user = useSelector((state: any) => state)
-  console.log("user: ", user)
 
   useEffect(() => {
     dispatch(getProduct())
