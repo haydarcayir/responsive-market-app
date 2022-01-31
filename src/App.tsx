@@ -1,58 +1,39 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
+import { useState, useEffect } from "react"
+import Header from "components/Header"
+import Filter from "containers/Filter"
+import ProductList from "containers/ProductList"
+import styled from "styled-components"
+import { useDispatch, useSelector } from "react-redux"
+import { getProduct } from "redux/ducks/productSlice"
+import { stat } from "fs"
+
+const Container = styled.div`
+  display: grid;
+  gap: 10px;
+  margin: 30px 0px;
+  grid-template-columns: auto auto auto;
+`
 
 function App() {
+  const [isActive, setIsActive] = useState(false)
+  const dispatch = useDispatch()
+
+  const user = useSelector((state: any) => state)
+  console.log("user: ", user)
+
+  useEffect(() => {
+    dispatch(getProduct())
+  }, [dispatch])
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
+      <Header />
+      <Container>
+        <Filter onClickIsactive={(e: boolean) => setIsActive(e)} />
+        {!isActive && <ProductList />}
+      </Container>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
