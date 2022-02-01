@@ -12,6 +12,7 @@ import { TProps as TPropsProductCard } from "components/ProductCard"
 
 import { useDispatch, useSelector } from "react-redux"
 import { getItems } from "redux/ducks/itemSlice"
+import { getCompanies } from "redux/ducks/companySlice"
 
 const Container = styled.div`
   max-width: 850px;
@@ -30,17 +31,30 @@ const BasketContainer = styled.div`
   right: 0px;
 `
 
-const totalItemsCount = 1740
+const itemTypes = {
+  mug: "mug",
+  shirt: "shirt",
+}
 
 const ProductList = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
+  const [itemType, setItemType] = useState<string>(itemTypes.mug)
   const [page, setPage] = useState<number>(1)
   const items = useSelector((state: any) => state.items)
+
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(getItems({ page }))
+    dispatch(getItems())
+    dispatch(getCompanies())
   }, [dispatch, page])
+
+  const filteredItemsByItemType = items?.data?.filter(
+    (i: any) => i.itemType === itemType
+  )
+
+  const listedItems =
+    filteredItemsByItemType.slice((page - 1) * 16, page * 16) || []
 
   return (
     <div>
@@ -56,20 +70,32 @@ const ProductList = () => {
         text="mug"
         size={BUTTON_SIZE_OPTIONS.BTN_LARGE}
         className="mR10"
+        variant={
+          itemType === itemTypes.mug
+            ? BUTTON_TYPE_OPTIONS.PRIMARY
+            : BUTTON_TYPE_OPTIONS.SECONDARY
+        }
+        onClick={() => setItemType(itemTypes.mug)}
       />
       <Button
         text="shirt"
-        variant={BUTTON_TYPE_OPTIONS.SECONDARY}
+        variant={
+          itemType === itemTypes.shirt
+            ? BUTTON_TYPE_OPTIONS.PRIMARY
+            : BUTTON_TYPE_OPTIONS.SECONDARY
+        }
         size={BUTTON_SIZE_OPTIONS.BTN_LARGE}
+        onClick={(e) => setItemType(itemTypes.shirt)}
+
         // onClick={(e) => setIsOpen(!isOpen)}
       />
       <Container>
-        {items?.data?.map((item: TPropsProductCard) => (
+        {listedItems.map((item: TPropsProductCard) => (
           <ProductCard item={item} />
         ))}
       </Container>
       <Pagination
-        pageCount={Math.ceil(totalItemsCount / 16)}
+        pageCount={Math.ceil(filteredItemsByItemType.length / 16)}
         onPageChange={({ selected }) => setPage(selected + 1)}
       />
     </div>

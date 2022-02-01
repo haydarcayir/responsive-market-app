@@ -25,7 +25,7 @@
 
 body {
   width: 100%;
-  height: 100vh;
+  height: auto;
   background-color: var(--bg);
   font-family: "Open sans-serif";
   color: var(--text-color);

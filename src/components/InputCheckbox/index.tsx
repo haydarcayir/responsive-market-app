@@ -13,8 +13,8 @@ const Input = styled.input`
   width: 22px;
   border-radius: 15px;
   margin-bottom: 0;
-  position: absolute;
-  opacity: 0;
+  position: relative;
+  display: none; /* -- */
 
   &:checked + .label:before {
     background: var(--main-color);
@@ -87,7 +87,6 @@ const InputCheckbox = ({
         {...fieldProps}
         onChange={onChange}
         value={value}
-        // style={{ accentColor: "red" }}
       />
 
       <Span className="label">

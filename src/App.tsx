@@ -14,12 +14,15 @@ const Container = styled.div`
 function App() {
   const [isActive, setIsActive] = useState(false)
 
+  console.log("app")
   return (
     <div className="App">
       <Header />
       <Container>
-        <Filter onClickIsactive={(e: boolean) => setIsActive(e)} />
-        {!isActive && <ProductList />}
+        <div>
+          <Filter onClickIsactive={(e: boolean) => setIsActive(e)} />
+        </div>
+        <div>{!isActive && <ProductList />}</div>
       </Container>
     </div>
   )

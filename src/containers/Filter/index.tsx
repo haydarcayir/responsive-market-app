@@ -1,17 +1,18 @@
 import { useState } from "react"
 import cls from "classnames"
-import TextInput from "components/InputText"
-import InputCheckbox from "components/InputCheckbox"
-import InputRadio from "components/InputRadio"
 import styled from "styled-components"
+import { useDispatch, useSelector } from "react-redux"
 
-import SORTING_OPTIONS from "libs/constants/SORTING_OPTIONS"
 import BREAKPOINTS from "libs/constants/BREAKPOINTS"
 import Button from "components/Button"
 
+import BrandFilter from "./BrandFilter"
+import TagFilter from "./TagFilter"
+import Sort from "./Sort"
+import { setApp } from "redux/ducks/appSlice"
+
 const FilterContainer = styled.div`
   display: none;
-
   &.active {
     width: 100%;
     display: flex;
@@ -30,14 +31,6 @@ const FilterContainer = styled.div`
   }
 `
 
-const InputRadioContainer = styled.div`
-  background-color: var(--white);
-  padding: 25px;
-  width: 300px;
-  margin-top: 10px;
-  border-radius: 3px;
-`
-
 const Icon = styled.span`
   margin: 5px;
   @media ${BREAKPOINTS.laptop} {
@@ -47,14 +40,47 @@ const Icon = styled.span`
 
 const Filter = ({ onClickIsactive }: any) => {
   const [isActive, setIsActive] = useState(false)
+  const appState = useSelector((state: any) => state.app)
+  const dispatch = useDispatch()
 
-  const sortingOptions = Object.values(SORTING_OPTIONS).map((entry) => ({
-    label: entry.label,
-    value: entry.value,
-  }))
+  const handleChangeSort = (e: any) => {
+    dispatch(setApp({ sort: e.target.value }))
+  }
+
+  const handleChangeBrandFilter = (e: any) => {
+    if (e.target.checked) {
+      dispatch(
+        setApp({ filteredBrands: [...appState.filteredBrands, e.target.value] })
+      )
+    } else {
+      dispatch(
+        setApp({
+          filteredBrands: appState.filteredBrands.filter(
+            (i: any) => i !== e.target.value
+          ),
+        })
+      )
+    }
+  }
+
+  const handleChangeTagFilter = (e: any) => {
+    if (e.target.checked) {
+      dispatch(
+        setApp({ filteredTags: [...appState.filteredTags, e.target.value] })
+      )
+    } else {
+      dispatch(
+        setApp({
+          filteredTags: appState.filteredTags.filter(
+            (i: any) => i !== e.target.value
+          ),
+        })
+      )
+    }
+  }
 
   return (
-    <>
+    <div>
       <Icon
         onClick={() => {
           setIsActive(!isActive)
@@ -63,42 +89,14 @@ const Filter = ({ onClickIsactive }: any) => {
       >
         icon
       </Icon>
-      <FilterContainer className={cls({ active: isActive })}>
-        <div>
-          <label>Sorting</label>
-          <InputRadioContainer>
-            {sortingOptions.map((item) => {
-              return <InputRadio name={"item.value"} label={item.label} />
-            })}
-          </InputRadioContainer>
-        </div>
-        <div>
-          <label>Brands</label>
 
-          <InputRadioContainer>
-            <TextInput name="brand" placeholder="Search brand" />
-            {sortingOptions.map((item) => {
-              return <InputCheckbox name={"item.value"} label={item.label} />
-            })}
-          </InputRadioContainer>
-        </div>
-        <div>
-          <label>Tags</label>
-          <InputRadioContainer>
-            <TextInput name="tag" placeholder="Search tag" />
-            {sortingOptions.map((item) => {
-              return (
-                <InputCheckbox
-                  name={"haydar" + item.value}
-                  label={item.label}
-                />
-              )
-            })}
-          </InputRadioContainer>
-        </div>
+      <FilterContainer className={cls({ active: isActive })}>
+        <Sort onChange={handleChangeSort} />
+        <BrandFilter onChange={handleChangeBrandFilter} />
+        <TagFilter onChange={handleChangeTagFilter} />
         {isActive && <Button className="w-50" text="Uygula" />}
       </FilterContainer>
-    </>
+    </div>
   )
 }
 

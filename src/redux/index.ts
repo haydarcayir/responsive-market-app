@@ -3,11 +3,13 @@ import { configureStore } from "@reduxjs/toolkit"
 import createSagaMiddleware from "redux-saga"
 import { watcherSaga } from "./sagas/rootSaga"
 import itemReducer from "./ducks/itemSlice"
+import companyReducer from "./ducks/companySlice"
+import appReducer from "./ducks/appSlice"
 
 const sagaMiddleware = createSagaMiddleware()
 
 const store = configureStore({
-  reducer: { items: itemReducer },
+  reducer: { items: itemReducer, companies: companyReducer, app: appReducer },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({ thunk: false }).concat(sagaMiddleware),
 })

@@ -59,7 +59,7 @@ type TProps = {
   name: string
   id?: string
   label?: string
-  value?: string
+  value?: string | number
   disabled?: boolean
   onChange?: React.ChangeEventHandler<HTMLInputElement>
 }
