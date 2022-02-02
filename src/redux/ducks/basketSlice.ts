@@ -7,7 +7,7 @@ type TBasketState = {
   items: TItem[]
 }
 
-const basketSlice: any = createSlice({
+const basketSlice = createSlice({
   name: "basket",
   initialState: { items: [] } as TBasketState,
   reducers: {
@@ -15,10 +15,10 @@ const basketSlice: any = createSlice({
       state.items.push({ ...action.payload, count: 1 })
       return state
     },
-    increaseItemCount(state, action) {
+    increaseItemCount(state, action: PayloadAction<TItem>) {
       const currentItems = [...current(state.items)]
-      const increasedItemIndex: any = currentItems.findIndex(
-        (i: any) => i.slug === action.payload.slug
+      const increasedItemIndex = currentItems.findIndex(
+        (i) => i.slug === action.payload.slug
       )
       const newData = {
         ...state.items[increasedItemIndex],
@@ -27,10 +27,10 @@ const basketSlice: any = createSlice({
       currentItems.splice(increasedItemIndex, 1, newData)
       return { ...state, items: currentItems }
     },
-    decreaseItemCount(state, action) {
+    decreaseItemCount(state, action: PayloadAction<TItem>) {
       const currentItems = [...current(state.items)]
-      const increasedItemIndex: any = currentItems.findIndex(
-        (i: any) => i.slug === action.payload.slug
+      const increasedItemIndex = currentItems.findIndex(
+        (i) => i.slug === action.payload.slug
       )
       const newData = {
         ...state.items[increasedItemIndex],
@@ -43,11 +43,7 @@ const basketSlice: any = createSlice({
   },
 })
 
-export const {
-  addItemToBasket,
-  removeItemFromBasket,
-  increaseItemCount,
-  decreaseItemCount,
-} = basketSlice.actions
+export const { addItemToBasket, increaseItemCount, decreaseItemCount } =
+  basketSlice.actions
 
 export default basketSlice.reducer

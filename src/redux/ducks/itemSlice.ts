@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
 
-type SliceState =
+type TSliceState =
   | { state: "loading"; data: object[] }
   | { state: "finished"; data: object[] }
   | {
@@ -11,7 +11,7 @@ type SliceState =
 
 const itemSlice = createSlice({
   name: "items",
-  initialState: { state: "loading", data: [] } as SliceState,
+  initialState: { state: "loading", data: [] } as TSliceState,
   reducers: {
     getItems(state, action) {},
     setItems(state, action) {

@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect } from "react"
 import Button from "components/Button"
 import ProductCard from "components/ProductCard"
 import styled from "styled-components"
@@ -26,7 +26,6 @@ const Container = styled.div`
     gap: 30px;
   }
 `
-
 const BasketContainer = styled.div`
   position: absolute;
   top: 80px;
@@ -93,7 +92,7 @@ const ProductList = () => {
           <ProductCard
             item={item}
             basketItems={basketState.items}
-            onClick={(item: string) => {
+            onClick={(item) => {
               dispatch(addItemToBasket(item))
             }}
           />

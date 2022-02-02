@@ -1,9 +1,9 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
-type SliceState = {
-  sort: number | undefined
-  filteredBrands: string[]
-  filteredTags: string[]
+type TSliceState = {
+  sort?: number | undefined
+  filteredBrands?: string[]
+  filteredTags?: string[]
 }
 
 const appSlice = createSlice({
@@ -12,9 +12,9 @@ const appSlice = createSlice({
     sort: undefined,
     filteredBrands: [],
     filteredTags: [],
-  } as SliceState,
+  } as TSliceState,
   reducers: {
-    setApp(state, action) {
+    setApp(state, action: PayloadAction<TSliceState>) {
       return {
         ...state,
         ...action.payload,
