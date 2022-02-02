@@ -49,14 +49,19 @@ const StyledBasketImage = styled.img`
     height: 24px;
   }
 `
+type TProps = {
+  totalPrice: number
+}
 
-const Header = () => {
+const Header = ({ totalPrice }: TProps) => {
   return (
     <Wrapper className="navbar">
       <StyledLogoImage src={LogoImage} alt="logo" />
       <Basket id="basket">
         <StyledBasketImage src={BasketImage} alt="basket" />
-        <PriceLabel color={PRICE_LABEL_COLOR_OPTIONS.WHITE}>18.77</PriceLabel>
+        <PriceLabel color={PRICE_LABEL_COLOR_OPTIONS.WHITE}>
+          {Number.parseFloat(`${totalPrice}`).toFixed(2)}
+        </PriceLabel>
       </Basket>
     </Wrapper>
   )

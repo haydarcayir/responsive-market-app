@@ -41,7 +41,7 @@ const BasketCard = ({ baskets }: TProps) => {
     dispatch(increaseItemCount(item))
   }
 
-  var totalPrice = baskets.reduce((acc, obj) => {
+  const totalPrice = baskets.reduce((acc, obj) => {
     return acc + obj.price * obj.count
   }, 0)
 
