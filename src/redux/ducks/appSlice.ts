@@ -4,6 +4,7 @@ export type TSliceState = {
   sort?: number | undefined
   filteredBrands?: string[]
   filteredTags?: string[]
+  isFilterAreaForMobile?: boolean
 }
 
 const appSlice = createSlice({
@@ -12,6 +13,7 @@ const appSlice = createSlice({
     sort: undefined,
     filteredBrands: [],
     filteredTags: [],
+    isFilterAreaForMobile: false,
   } as TSliceState,
   reducers: {
     setApp(state, action: PayloadAction<TSliceState>) {

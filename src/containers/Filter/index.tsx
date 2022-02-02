@@ -1,11 +1,8 @@
-import { useState } from "react"
 import cls from "classnames"
 import styled from "styled-components"
 import { useDispatch, useSelector } from "react-redux"
-
 import BREAKPOINTS from "libs/constants/BREAKPOINTS"
 import Button from "components/Button"
-
 import BrandFilter from "./BrandFilter"
 import TagFilter from "./TagFilter"
 import Sort from "./Sort"
@@ -31,15 +28,7 @@ const FilterContainer = styled.div`
   }
 `
 
-const Icon = styled.span`
-  margin: 5px;
-  @media ${BREAKPOINTS.laptop} {
-    display: none;
-  }
-`
-
-const Filter = ({ onClickIsactive }: any) => {
-  const [isActive, setIsActive] = useState(false)
+const Filter = () => {
   const appState = useSelector((state: any) => state.app)
   const dispatch = useDispatch()
 
@@ -87,20 +76,21 @@ const Filter = ({ onClickIsactive }: any) => {
 
   return (
     <div>
-      <Icon
-        onClick={() => {
-          setIsActive(!isActive)
-          onClickIsactive(!isActive)
-        }}
+      <FilterContainer
+        className={cls({ active: appState.isFilterAreaForMobile })}
       >
-        icon
-      </Icon>
-
-      <FilterContainer className={cls({ active: isActive })}>
         <Sort onChange={handleChangeSort} />
         <BrandFilter onChange={handleChangeBrandFilter} />
         <TagFilter onChange={handleChangeTagFilter} />
-        {isActive && <Button className="w-50" text="Uygula" />}
+        {appState.isFilterAreaForMobile && (
+          <Button
+            className="w-50"
+            text="Uygula"
+            onClick={() => {
+              dispatch(setApp({ isFilterAreaForMobile: false }))
+            }}
+          />
+        )}
       </FilterContainer>
     </div>
   )
