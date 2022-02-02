@@ -1,18 +1,17 @@
 import { createSlice, PayloadAction, current } from "@reduxjs/toolkit"
+import { TItem as TDefaultItem } from "libs/models/item-model"
 
-type CounterState = {
-  items: { count: number }[]
-}
+type TItem = TDefaultItem & { count: number }
 
-const initialState: CounterState = {
-  items: [],
+type TBasketState = {
+  items: TItem[]
 }
 
 const basketSlice: any = createSlice({
   name: "basket",
-  initialState: initialState,
+  initialState: { items: [] } as TBasketState,
   reducers: {
-    addItemToBasket(state, action: PayloadAction<object[]>) {
+    addItemToBasket(state, action: PayloadAction<TItem>) {
       state.items.push({ ...action.payload, count: 1 })
       return state
     },

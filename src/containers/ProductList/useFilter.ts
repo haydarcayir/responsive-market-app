@@ -1,5 +1,5 @@
 import SORTING_OPTIONS from "libs/constants/SORTING_OPTIONS"
-import { useDispatch, useSelector } from "react-redux"
+import { useSelector } from "react-redux"
 
 const useFilter = (items: any, itemType: string) => {
   const appState = useSelector((state: any) => state.app)
@@ -40,7 +40,6 @@ const useFilter = (items: any, itemType: string) => {
     switch (Number(appState.sort)) {
       case SORTING_OPTIONS.NEW_TO_OLD.value: {
         filteredItemsByItemType.sort((a: any, b: any) => b.added - a.added)
-
         break
       }
       case SORTING_OPTIONS.OLD_TO_NEW.value: {

@@ -1,10 +1,10 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
-import { TData as TCompanyData } from "redux/sagas/handlers/company"
+import { TCompany } from "libs/models/company-model"
 
 export type TSliceState =
-  | { state: "loading"; data: TCompanyData[] }
-  | { state: "finished"; data: TCompanyData[] }
+  | { state: "loading"; data: TCompany[] }
+  | { state: "finished"; data: TCompany[] }
   | {
       loading: boolean
       error: boolean
@@ -16,7 +16,7 @@ const companySlice = createSlice({
   initialState: { state: "loading", data: [] } as TSliceState,
   reducers: {
     getCompanies() {},
-    setCompanies(state, action) {
+    setCompanies(state, action: PayloadAction<TCompany[]>) {
       return {
         state: "finished",
         data: [...action.payload],
