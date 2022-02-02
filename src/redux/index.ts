@@ -5,11 +5,17 @@ import { watcherSaga } from "./sagas/rootSaga"
 import itemReducer from "./ducks/itemSlice"
 import companyReducer from "./ducks/companySlice"
 import appReducer from "./ducks/appSlice"
+import basketReducer from "./ducks/basketSlice"
 
 const sagaMiddleware = createSagaMiddleware()
 
 const store = configureStore({
-  reducer: { items: itemReducer, companies: companyReducer, app: appReducer },
+  reducer: {
+    items: itemReducer,
+    companies: companyReducer,
+    app: appReducer,
+    basket: basketReducer,
+  },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({ thunk: false }).concat(sagaMiddleware),
 })

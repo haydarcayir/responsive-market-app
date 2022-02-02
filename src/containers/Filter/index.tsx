@@ -50,14 +50,20 @@ const Filter = ({ onClickIsactive }: any) => {
   const handleChangeBrandFilter = (e: any) => {
     if (e.target.checked) {
       dispatch(
-        setApp({ filteredBrands: [...appState.filteredBrands, e.target.value] })
+        setApp({
+          filteredBrands: [
+            ...(appState.filteredBrands ? [...appState.filteredBrands] : []),
+            e.target.value,
+          ],
+        })
       )
     } else {
+      const filtered = appState.filteredBrands.filter(
+        (i: any) => i !== e.target.value
+      )
       dispatch(
         setApp({
-          filteredBrands: appState.filteredBrands.filter(
-            (i: any) => i !== e.target.value
-          ),
+          filteredBrands: filtered.length > 0 ? filtered : null,
         })
       )
     }

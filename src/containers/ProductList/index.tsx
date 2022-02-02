@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import Button from "components/Button"
 import ProductCard from "components/ProductCard"
 import styled from "styled-components"
@@ -7,12 +7,14 @@ import BUTTON_SIZE_OPTIONS from "libs/constants/BUTTON_SIZE_OPTIONS"
 import BREAKPOINTS from "libs/constants/BREAKPOINTS"
 import Pagination from "components/Pagination"
 import { Portal } from "react-portal"
-import BasketCard from "components/BasketCard"
+import BasketCard from "containers/BasketCard"
 import { TProps as TPropsProductCard } from "components/ProductCard"
 
 import { useDispatch, useSelector } from "react-redux"
 import { getItems } from "redux/ducks/itemSlice"
 import { getCompanies } from "redux/ducks/companySlice"
+import { addItemToBasket } from "redux/ducks/basketSlice"
+import useFilter from "./useFilter"
 
 const Container = styled.div`
   max-width: 850px;
@@ -37,21 +39,20 @@ const itemTypes = {
 }
 
 const ProductList = () => {
-  const [isOpen, setIsOpen] = useState<boolean>(false)
   const [itemType, setItemType] = useState<string>(itemTypes.mug)
   const [page, setPage] = useState<number>(1)
   const items = useSelector((state: any) => state.items)
-
+  const basketState = useSelector((state: any) => state.basket)
   const dispatch = useDispatch()
+  const { filteredItemsByItemType } = useFilter(items, itemType)
 
   useEffect(() => {
-    dispatch(getItems())
     dispatch(getCompanies())
-  }, [dispatch, page])
+  }, [dispatch])
 
-  const filteredItemsByItemType = items?.data?.filter(
-    (i: any) => i.itemType === itemType
-  )
+  useEffect(() => {
+    dispatch(getItems({ itemType }))
+  }, [dispatch, itemType])
 
   const listedItems =
     filteredItemsByItemType.slice((page - 1) * 16, page * 16) || []
@@ -59,10 +60,10 @@ const ProductList = () => {
   return (
     <div>
       <h2>Product</h2>
-      {isOpen && (
+      {!!basketState.items.length && (
         <Portal node={document && document.getElementById("basket")}>
           <BasketContainer>
-            <BasketCard />
+            <BasketCard baskets={basketState.items} />
           </BasketContainer>
         </Portal>
       )}
@@ -86,12 +87,16 @@ const ProductList = () => {
         }
         size={BUTTON_SIZE_OPTIONS.BTN_LARGE}
         onClick={(e) => setItemType(itemTypes.shirt)}
-
-        // onClick={(e) => setIsOpen(!isOpen)}
       />
       <Container>
         {listedItems.map((item: TPropsProductCard) => (
-          <ProductCard item={item} />
+          <ProductCard
+            item={item}
+            basketItems={basketState.items}
+            onClick={(item: string) => {
+              dispatch(addItemToBasket(item))
+            }}
+          />
         ))}
       </Container>
       <Pagination

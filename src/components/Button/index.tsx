@@ -23,6 +23,9 @@ const StyledButton = styled.button`
   &.${BUTTON_SIZE_OPTIONS.BTN_SMALL} {
     height: 20px;
   }
+  &:disabled {
+    background-color: var(--dark-bg);
+  }
 `
 
 type TProps = {
@@ -32,6 +35,7 @@ type TProps = {
   variant?: string
   className?: string
   size?: string
+  disabled?: boolean
 }
 
 const Button = ({
@@ -41,10 +45,12 @@ const Button = ({
   className,
   onClick,
   size = BUTTON_SIZE_OPTIONS.BTN,
+  disabled,
 }: TProps) => {
   return (
     <StyledButton
       onClick={onClick}
+      disabled={disabled}
       className={cls(className, {
         [`${size}`]: true,
         [`${variant}`]: true,

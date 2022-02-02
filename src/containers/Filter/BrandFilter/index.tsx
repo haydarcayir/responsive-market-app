@@ -36,6 +36,7 @@ const BrandFilter = ({ onChange }: TProps) => {
         sum += filteredItems.length
         return {
           name: company.name,
+          slug: company.slug,
           count: filteredItems.length,
         }
       })
@@ -44,6 +45,7 @@ const BrandFilter = ({ onChange }: TProps) => {
     if (brands.length) {
       brands.unshift({
         name: "All",
+        slug: "all",
         count: sum,
       })
     }
@@ -61,7 +63,7 @@ const BrandFilter = ({ onChange }: TProps) => {
               <InputCheckbox
                 name={brand.name}
                 label={brand.name}
-                value={brand.name}
+                value={brand.slug}
                 count={brand.count}
                 onChange={onChange}
               />

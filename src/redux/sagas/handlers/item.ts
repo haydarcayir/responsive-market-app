@@ -20,11 +20,12 @@ type TResponseData = {
 }
 
 export function* handleGetItems(action: any) {
-  // const { page } = action.payload
+  const { itemType } = action.payload
+
   try {
     const { data }: TResponseBaseModel<TResponseData> = yield call(
-      requestGetItems
-      /*  page */
+      requestGetItems,
+      itemType
     )
     yield put(setItems(data))
   } catch (error) {

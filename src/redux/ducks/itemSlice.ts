@@ -13,7 +13,7 @@ const itemSlice = createSlice({
   name: "items",
   initialState: { state: "loading", data: [] } as SliceState,
   reducers: {
-    getItems(/* state, action */) {},
+    getItems(state, action) {},
     setItems(state, action) {
       return {
         state: "finished",

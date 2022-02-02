@@ -39,19 +39,31 @@ const SquareSpan = styled.span`
   align-items: center;
 `
 
-const BasketCardItem = () => {
+type TData = {
+  name: string
+  count: number
+  price: number
+}
+
+type TProps = {
+  data: TData
+  onClickDec: (data: TData) => void
+  onClickInc: (data: TData) => void
+}
+
+const BasketCardItem = ({ data, onClickDec, onClickInc }: TProps) => {
   return (
     <Container>
       <StyledDivLeft>
         <ProductNameLabel heading={PRODUCT_NAME_HEADING_OPTIONS.SECONDARY}>
-          Example Product
+          {data.name}
         </ProductNameLabel>
-        <PriceLabel>18.00</PriceLabel>
+        <PriceLabel>{data.price}</PriceLabel>
       </StyledDivLeft>
       <StyledDivRight>
-        <ColoredSpan>-</ColoredSpan>
-        <SquareSpan>1</SquareSpan>
-        <ColoredSpan>+</ColoredSpan>
+        <ColoredSpan onClick={() => onClickDec(data)}>-</ColoredSpan>
+        <SquareSpan>{data.count}</SquareSpan>
+        <ColoredSpan onClick={() => onClickInc(data)}>+</ColoredSpan>
       </StyledDivRight>
     </Container>
   )

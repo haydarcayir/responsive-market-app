@@ -40,7 +40,25 @@ export type TProps = {
   tags?: string[]
 }
 
-const ProductCard = ({ item }: { item: TProps }) => {
+type TPropss = {
+  item: {
+    name: string
+    price: number
+    added?: number
+    description?: string
+    itemType?: string
+    manufacturer?: string
+    slug?: string
+    tags?: string[]
+  }
+  onClick: (item: any) => void
+  basketItems: object[]
+}
+
+const ProductCard = ({ item, onClick, basketItems }: TPropss) => {
+  const isBtnDisabled: boolean = basketItems.some(
+    (b: any) => b.slug === item.slug
+  )
   return (
     <Container>
       <ImageContainer>
@@ -49,7 +67,12 @@ const ProductCard = ({ item }: { item: TProps }) => {
       <ProductInfo>
         <PriceLabel>{item.price}</PriceLabel>
         <ProductNameLabel>{item.name}</ProductNameLabel>
-        <Button text="Add" className="w-100" />
+        <Button
+          disabled={isBtnDisabled}
+          text={isBtnDisabled ? "Added" : "Add"}
+          className="w-100"
+          onClick={() => onClick(item)}
+        />
       </ProductInfo>
     </Container>
   )
