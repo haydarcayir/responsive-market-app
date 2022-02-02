@@ -48,6 +48,7 @@
   },
   "devDependencies": {
     "@types/react-portal": "^4.0.4",
-    "@types/styled-components": "^5.1.21"
+    "@types/styled-components": "^5.1.21",
+    "ts-node": "^10.4.0"
   }
 }
