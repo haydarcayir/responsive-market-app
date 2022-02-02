@@ -8,7 +8,6 @@ import appReducer from "./ducks/appSlice"
 import basketReducer from "./ducks/basketSlice"
 
 const sagaMiddleware = createSagaMiddleware()
-
 const store = configureStore({
   reducer: {
     items: itemReducer,

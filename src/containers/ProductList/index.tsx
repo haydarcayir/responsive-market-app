@@ -40,10 +40,9 @@ const itemTypes = {
 const ProductList = () => {
   const [itemType, setItemType] = useState<string>(itemTypes.mug)
   const [page, setPage] = useState<number>(1)
-  const items = useSelector((state: any) => state.items)
   const basketState = useSelector((state: any) => state.basket)
   const dispatch = useDispatch()
-  const { filteredItemsByItemType } = useFilter(items, itemType)
+  const { filteredItemsByItemType } = useFilter(itemType)
 
   useEffect(() => {
     dispatch(getCompanies())
@@ -88,7 +87,7 @@ const ProductList = () => {
         onClick={(e) => setItemType(itemTypes.shirt)}
       />
       <Container>
-        {listedItems.map((item: TPropsProductCard) => (
+        {listedItems.map((item) => (
           <ProductCard
             item={item}
             basketItems={basketState.items}

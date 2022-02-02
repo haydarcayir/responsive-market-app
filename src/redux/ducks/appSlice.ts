@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
-type TSliceState = {
+export type TSliceState = {
   sort?: number | undefined
   filteredBrands?: string[]
   filteredTags?: string[]

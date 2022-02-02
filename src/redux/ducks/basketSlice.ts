@@ -3,13 +3,13 @@ import { TItem as TDefaultItem } from "libs/models/item-model"
 
 type TItem = TDefaultItem & { count: number }
 
-type TBasketState = {
+export type TSliceState = {
   items: TItem[]
 }
 
 const basketSlice = createSlice({
   name: "basket",
-  initialState: { items: [] } as TBasketState,
+  initialState: { items: [] } as TSliceState,
   reducers: {
     addItemToBasket(state, action: PayloadAction<TItem>) {
       state.items.push({ ...action.payload, count: 1 })

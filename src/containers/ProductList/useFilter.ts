@@ -1,20 +1,25 @@
 import SORTING_OPTIONS from "libs/constants/SORTING_OPTIONS"
 import { useSelector } from "react-redux"
 
-const useFilter = (items: any, itemType: string) => {
-  const appState = useSelector((state: any) => state.app)
+import { TRootReducer } from "libs/models/root-reducer-model"
+import { TItem } from "libs/models/item-model"
+
+const useFilter = (itemType: string) => {
+  const appState = useSelector((state: TRootReducer) => state.app)
+  const items = useSelector((state: TRootReducer) => state.items)
 
   let filteredItemsByItemType = items?.data?.filter(
-    (i: any) => i.itemType === itemType
+    (i) => i.itemType === itemType
   )
 
   if (appState?.filteredBrands?.length) {
-    let filteredItemsByBrand: any[] = []
-    appState.filteredBrands.forEach((brand: any) => {
-      const asd = filteredItemsByItemType.filter(
-        (i: any) => i.manufacturer === brand
+    let filteredItemsByBrand: TItem[] = []
+
+    appState.filteredBrands.forEach((brand) => {
+      const filtered = filteredItemsByItemType.filter(
+        (i) => i.manufacturer === brand
       )
-      filteredItemsByBrand = [...filteredItemsByBrand, ...asd]
+      filteredItemsByBrand = [...filteredItemsByBrand, ...filtered]
     })
 
     if (filteredItemsByBrand.length) {
@@ -23,12 +28,12 @@ const useFilter = (items: any, itemType: string) => {
   }
 
   if (appState?.filteredTags?.length) {
-    let filteredItemsByTag: any[] = []
-    appState.filteredTags.forEach((tag: any) => {
-      const asd = filteredItemsByItemType.filter((i: any) =>
+    let filteredItemsByTag: TItem[] = []
+    appState.filteredTags.forEach((tag) => {
+      const filtered = filteredItemsByItemType.filter((i) =>
         i.tags.includes(tag)
       )
-      filteredItemsByTag = [...filteredItemsByTag, ...asd]
+      filteredItemsByTag = [...filteredItemsByTag, ...filtered]
     })
 
     if (filteredItemsByTag.length) {

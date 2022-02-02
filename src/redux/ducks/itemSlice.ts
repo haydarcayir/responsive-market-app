@@ -1,17 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit"
+import { TItem } from "libs/models/item-model"
 
-type TSliceState =
-  | { state: "loading"; data: object[] }
-  | { state: "finished"; data: object[] }
-  | {
+export type TSliceItem =
+  | { state: "loading"; data: TItem[] }
+  | { state: "finished"; data: TItem[] }
+/* | {
       loading: boolean
       error: boolean
       contractsData?: []
-    }
+    } */
 
 const itemSlice = createSlice({
   name: "items",
-  initialState: { state: "loading", data: [] } as TSliceState,
+  initialState: { state: "loading", data: [] } as TSliceItem,
   reducers: {
     getItems(state, action) {},
     setItems(state, action) {
