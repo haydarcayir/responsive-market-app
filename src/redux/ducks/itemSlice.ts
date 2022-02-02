@@ -4,11 +4,6 @@ import { TItem } from "libs/models/item-model"
 export type TSliceItem =
   | { state: "loading"; data: TItem[] }
   | { state: "finished"; data: TItem[] }
-/* | {
-      loading: boolean
-      error: boolean
-      contractsData?: []
-    } */
 
 const itemSlice = createSlice({
   name: "items",

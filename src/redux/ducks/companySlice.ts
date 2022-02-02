@@ -5,11 +5,6 @@ import { TCompany } from "libs/models/company-model"
 export type TSliceState =
   | { state: "loading"; data: TCompany[] }
   | { state: "finished"; data: TCompany[] }
-  | {
-      loading: boolean
-      error: boolean
-      contractsData?: []
-    }
 
 const companySlice = createSlice({
   name: "companies",

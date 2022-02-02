@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import cls from "classnames"
-import PRODUCT_NAME_HEADING_OPTIONS from "libs/constants/PRODUCT_NAME_HEADING_OPTIONS"
+import PRODUCT_NAME_HEADING_OPTIONS from "../../libs/constants/PRODUCT_NAME_HEADING_OPTIONS"
 
 const Heading = styled.span`
   color: var(--text-color);

@@ -1,6 +1,6 @@
 import React, { useMemo } from "react"
-import InputCheckbox from "components/InputCheckbox"
-import TextInput from "components/InputText"
+import InputCheckbox from "../../../components/InputCheckbox"
+import TextInput from "../../../components/InputText"
 import styled from "styled-components"
 import { useSelector } from "react-redux"
 

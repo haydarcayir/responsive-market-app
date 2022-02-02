@@ -1,20 +1,20 @@
 import { useState, useEffect } from "react"
-import Button from "components/Button"
-import ProductCard from "components/ProductCard"
+import Button from "../../components/Button"
+import ProductCard from "../../components/ProductCard"
 import styled from "styled-components"
-import BUTTON_TYPE_OPTIONS from "libs/constants/BUTTON_TYPE_OPTIONS"
-import BUTTON_SIZE_OPTIONS from "libs/constants/BUTTON_SIZE_OPTIONS"
-import BREAKPOINTS from "libs/constants/BREAKPOINTS"
-import Pagination from "components/Pagination"
+import BUTTON_TYPE_OPTIONS from "../../libs/constants/BUTTON_TYPE_OPTIONS"
+import BUTTON_SIZE_OPTIONS from "../../libs/constants/BUTTON_SIZE_OPTIONS"
+import BREAKPOINTS from "../../libs/constants/BREAKPOINTS"
+import Pagination from "../../components/Pagination"
 import { Portal } from "react-portal"
-import BasketCard from "containers/BasketCard"
+import BasketCard from "../BasketCard"
 
 import { useDispatch, useSelector } from "react-redux"
-import { getItems } from "redux/ducks/itemSlice"
-import { getCompanies } from "redux/ducks/companySlice"
-import { addItemToBasket } from "redux/ducks/basketSlice"
+import { getItems } from "../../redux/ducks/itemSlice"
+import { getCompanies } from "../../redux/ducks/companySlice"
+import { addItemToBasket } from "../../redux/ducks/basketSlice"
 import useFilter from "./useFilter"
-import { setApp } from "redux/ducks/appSlice"
+import { setApp } from "../../redux/ducks/appSlice"
 
 const Container = styled.div`
   margin-left: 20px;
@@ -58,11 +58,13 @@ const itemTypes = {
   mug: "mug",
   shirt: "shirt",
 }
+const ITEMS_PER_PAGE = 16
 
 const ProductList = () => {
   const [itemType, setItemType] = useState<string>(itemTypes.mug)
   const [page, setPage] = useState<number>(1)
   const basketState = useSelector((state: any) => state.basket)
+  const appState = useSelector((state: any) => state.app)
   const dispatch = useDispatch()
   const { filteredItemsByItemType } = useFilter(itemType)
 
@@ -75,7 +77,10 @@ const ProductList = () => {
   }, [dispatch, itemType])
 
   const listedItems =
-    filteredItemsByItemType.slice((page - 1) * 16, page * 16) || []
+    filteredItemsByItemType.slice(
+      (page - 1) * ITEMS_PER_PAGE,
+      page * ITEMS_PER_PAGE
+    ) || []
 
   const handleClickFilterAndSort = () => {
     dispatch(setApp({ isFilterAreaForMobile: true }))
@@ -89,7 +94,7 @@ const ProductList = () => {
         <div onClick={handleClickFilterAndSort}>Sort</div>
       </FilterHead>
       <h2>Product</h2>
-      {!!basketState.items.length && (
+      {!!basketState.items.length && appState.isBasketShowed && (
         <Portal node={document && document.getElementById("basket")}>
           <BasketContainer>
             <BasketCard baskets={basketState.items} />
