@@ -2,9 +2,9 @@ import styled from "styled-components"
 import PriceLabel from "components/PriceLabel"
 import PRICE_LABEL_COLOR_OPTIONS from "libs/constants/PRICE_LABEL_COLOR_OPTIONS"
 import BREAKPOINTS from "libs/constants/BREAKPOINTS"
+import { RiShoppingBasketLine } from "react-icons/ri"
 
 const LogoImage = require("../../images/Logo.png")
-const BasketImage = require("../../images/basket.png")
 
 const Wrapper = styled.div`
   background-color: var(--main-color);
@@ -34,6 +34,12 @@ const Basket = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 20px;
+  gap: 5px;
+  color: var(--white);
+  svg {
+    margin-top: -3px;
+  }
   @media ${BREAKPOINTS.laptop} {
     height: 75px;
     position: absolute;
@@ -42,13 +48,6 @@ const Basket = styled.div`
   }
 `
 
-const StyledBasketImage = styled.img`
-  height: 24px;
-  margin: -5px 5px 0;
-  @media ${BREAKPOINTS.laptop} {
-    height: 24px;
-  }
-`
 type TProps = {
   totalPrice: number
 }
@@ -58,7 +57,7 @@ const Header = ({ totalPrice }: TProps) => {
     <Wrapper className="navbar">
       <StyledLogoImage src={LogoImage} alt="logo" />
       <Basket id="basket">
-        <StyledBasketImage src={BasketImage} alt="basket" />
+        <RiShoppingBasketLine />
         <PriceLabel color={PRICE_LABEL_COLOR_OPTIONS.WHITE}>
           {Number.parseFloat(`${totalPrice}`).toFixed(2)}
         </PriceLabel>
