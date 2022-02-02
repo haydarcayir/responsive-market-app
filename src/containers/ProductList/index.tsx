@@ -118,8 +118,9 @@ const ProductList = () => {
         onClick={(e) => setItemType(itemTypes.shirt)}
       />
       <ProductCardContainer>
-        {listedItems.map((item) => (
+        {listedItems.map((item, index) => (
           <ProductCard
+            key={index}
             item={item}
             basketItems={basketState.items}
             onClick={(item) => {

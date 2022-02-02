@@ -58,9 +58,10 @@ const BrandFilter = ({ onChange }: TProps) => {
       <InputRadioContainer>
         <TextInput name="brand" placeholder="Search brand" />
         <div>
-          {brands.map((brand: any) => {
+          {brands.map((brand: any, index: number) => {
             return (
               <InputCheckbox
+                key={index}
                 name={brand.name}
                 label={brand.name}
                 value={brand.slug}

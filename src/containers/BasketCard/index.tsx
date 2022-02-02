@@ -47,9 +47,10 @@ const BasketCard = ({ baskets }: TProps) => {
 
   return (
     <Container>
-      {baskets.map((basketItem) => {
+      {baskets.map((basketItem, index) => {
         return (
           <BasketCardItem
+            key={index}
             data={basketItem}
             onClickDec={handleDecrease}
             onClickInc={handleIncrease}

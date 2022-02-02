@@ -52,9 +52,10 @@ const TagFilter = ({ onChange }: TProps) => {
       <InputRadioContainer>
         <TextInput name="tag" placeholder="Search tag" />
         <div>
-          {uniqueFilteredTags.map((item: any) => {
+          {uniqueFilteredTags.map((item: any, index) => {
             return (
               <InputCheckbox
+                key={index}
                 name={item.tag}
                 label={item.tag}
                 count={item.count}

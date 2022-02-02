@@ -24,9 +24,10 @@ const Sort = ({ onChange }: TProps) => {
     <div>
       <label>Sorting</label>
       <InputRadioContainer>
-        {sortingOptions.map((item) => {
+        {sortingOptions.map((item, index) => {
           return (
             <InputRadio
+              key={index}
               name="sort"
               label={item.label}
               value={item.value}
