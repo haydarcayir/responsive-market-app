@@ -24,7 +24,7 @@ const ProductCardContainer = styled.div`
   max-width: 850px;
   display: flex;
   flex-wrap: wrap;
-  column-gap: 30px;
+  column-gap: 40px;
   row-gap: 10px;
   margin-bottom: 20px;
   @media ${BREAKPOINTS.laptop} {
@@ -33,8 +33,11 @@ const ProductCardContainer = styled.div`
 `
 const BasketContainer = styled.div`
   position: absolute;
-  top: 80px;
+  top: 55px;
   right: 0px;
+  @media ${BREAKPOINTS.laptop} {
+    top: 80px;
+  }
 `
 const FilterHead = styled.div`
   display: flex;

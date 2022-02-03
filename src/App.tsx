@@ -10,9 +10,10 @@ import { TRootReducer } from "./libs/models/root-reducer-model"
 const Container = styled.div`
   display: grid;
   gap: 10px;
-  margin: 30px 0px;
   grid-template-columns: auto;
+  margin: 25px 15px 20px 5px;
   @media ${BREAKPOINTS.laptop} {
+    margin: 25px 10px;
     grid-template-columns: auto auto auto;
   }
 `
